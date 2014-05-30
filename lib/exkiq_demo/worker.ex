@@ -20,8 +20,8 @@ defmodule ExkiqDemo.Worker do
     job         = JSON.decode!(job)
     jid         = job["jid"]
     args        = [jid, "Hello Hard Worker"] # TODO: Args should be the COMPUTED value
-    queue       = "queue:default"       # Switch to the Rails default Sidekiq queue
-    class       = "HardWorker"          # Change this to match Rails worker
+    queue       = "queue:default"            # Switch to the Rails default Sidekiq queue
+    class       = "HardWorker"               # Change this to match Rails worker
     enqueued_at = job["enqueued_at"]
 
     new_job = HashDict.new 

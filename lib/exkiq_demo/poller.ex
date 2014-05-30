@@ -15,10 +15,12 @@ defmodule ExkiqDemo.Poller do
 
   def poll(redis_client) do
     IO.puts "Polling ..."
-    job = redis_client 
-          |> Exredis.query(["RPOP", "queue:elixir"])
-          |> ExkiqDemo.WorkerSupervisor.new_job
-    :timer.sleep(1000)
+
+    redis_client 
+    |> Exredis.query(["RPOP", "queue:elixir"])
+    |> ExkiqDemo.WorkerSupervisor.new_job
+
+    :timer.sleep(10)
 
     poll(redis_client)
   end

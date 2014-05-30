@@ -15,9 +15,9 @@ defmodule ExkiqDemo.Poller do
 
   def poll(redis_client) do
     IO.puts "Polling ..."
-    result = redis_client 
-             |> Exredis.query(["BRPOP", "queue:elixir", 0])
-             |> ExkiqDemo.WorkerSupervisor.new_job
+    job = redis_client 
+          |> Exredis.query(["RPOP", "queue:elixir"])
+          |> ExkiqDemo.WorkerSupervisor.new_job
     :timer.sleep(1000)
 
     poll(redis_client)

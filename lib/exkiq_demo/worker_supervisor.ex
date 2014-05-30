@@ -13,7 +13,11 @@ defmodule ExkiqDemo.WorkerSupervisor do
     supervise(children, strategy: :simple_one_for_one)
   end
 
-  def new_job([_, job]) do
+  def new_job(:undefined) do
+    IO.puts "No job."
+  end
+
+  def new_job(job) do
     {:ok, pid} = :supervisor.start_child(__MODULE__, [])
     ExkiqDemo.Worker.run(pid, job)
   end
